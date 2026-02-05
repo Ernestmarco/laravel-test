@@ -1,0 +1,21 @@
+name: Deploy Laravel Sail (Remote)
+on:
+  push:
+    branches: [ "main" ]
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy (Remote) por SSH con Sail
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: 203.0.113.10
+          username: ubuntu
+          password:  MI_PASSWORD_SECRETA
+          script: |
+            set -e
+            cd cd /home/ubuntu/laravel-test
+            git pull
+            ./vendor/bin/sail down
+            ./vendor/bin/sail up -d --build
+            ./vendor/bin/sail artisan migrate --force
