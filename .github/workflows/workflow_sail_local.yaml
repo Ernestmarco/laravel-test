@@ -1,0 +1,16 @@
+name: Deploy Laravel Sail (Local)
+on:
+  push:
+    branches: [ "main" ]
+jobs:
+  deploy:
+    runs-on: self-hosted
+    steps:
+      - name: Deploy (Local) con Sail
+        run: |
+          set -e
+          cd /home/ernest/clase/development/blog
+          git pull
+          ./vendor/bin/sail down
+          ./vendor/bin/sail up -d --build
+          ./vendor/bin/sail artisan migrate --force
