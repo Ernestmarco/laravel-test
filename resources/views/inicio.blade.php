@@ -1,5 +1,5 @@
 @extends('plantilla')
 @section('titulo', 'Inicio')
 @section('contenido')
-    <h1>Blog</h1>
+    <h1>Blogs</h1>
 @endsection
