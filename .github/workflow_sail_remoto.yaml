@@ -16,6 +16,6 @@ jobs:
             set -e
             cd cd /home/ubuntu/laravel-test
             git pull
-            ./vendor/bin/sail down
-            ./vendor/bin/sail up -d --build
-            ./vendor/bin/sail artisan migrate --force
+            sudo ./vendor/bin/sail down
+            sudo ./vendor/bin/sail up -d --build
+            sudo ./vendor/bin/sail artisan migrate --force
