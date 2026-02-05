@@ -1,21 +1,23 @@
-name: Deploy Laravel Sail (Remote)
+name: Deploy Laravel Sail AWS
+
 on:
   push:
     branches: [ "main" ]
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Deploy (Remote) por SSH con Sail
-        uses: appleboy/ssh-action@v1.0.0
+        uses: appleboy/ssh-action@v1.0.3
         with:
-          host: 203.0.113.10
-          username: ubuntu
-          password:  MI_PASSWORD_SECRETA
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
           script: |
             set -e
-            cd cd /home/ubuntu/laravel-test
-            git pull
-            sudo ./vendor/bin/sail down
-            sudo ./vendor/bin/sail up -d --build
-            sudo ./vendor/bin/sail artisan migrate --force
+            cd /home/ubuntu/laravel-test
+            git pull origin main
+            ./vendor/bin/sail down
+            ./vendor/bin/sail up -d --build
+            ./vendor/bin/sail artisan migrate --force
